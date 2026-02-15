@@ -1,0 +1,166 @@
+{
+  "nodes": {
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771132481,
+        "narHash": "sha256-Tc+YqZ/Q1K35vJK4ji4RbLB/qKGcEq6yh7p4CKoZF60=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "1e53254671f36cb7d0e2dcca08730f066d5e69b4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1771008912,
+        "narHash": "sha256-gf2AmWVTs8lEq7z/3ZAsgnZDhWIckkb+ZnAo5RzSxJg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a82ccc39b39b621151d6732718e3e250109076fa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1770812194,
+        "narHash": "sha256-OH+lkaIKAvPXR3nITO7iYZwew2nW9Y7Xxq0yfM/UcUU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8482c7ded03bae7550f3d69884f1e611e3bd19e8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "opencode": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1771137676,
+        "narHash": "sha256-7+C0QBv9YgxWKD11kVsO9kLkWo16ENfQuIdJiSL2CaE=",
+        "owner": "anomalyco",
+        "repo": "opencode",
+        "rev": "eb553f53ac9689ab2056fceea0c7b0504f642101",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anomalyco",
+        "ref": "dev",
+        "repo": "opencode",
+        "type": "github"
+      }
+    },
+    "plasma-manager": {
+      "inputs": {
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1770766818,
+        "narHash": "sha256-12RCFLyAedyMOdenUi7cN3ioJPEGjA/ZG1BLjugfUVs=",
+        "owner": "nix-community",
+        "repo": "plasma-manager",
+        "rev": "44b928068359b7d2310a34de39555c63c93a2c90",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "plasma-manager",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs",
+        "opencode": "opencode",
+        "plasma-manager": "plasma-manager",
+        "spicetify-nix": "spicetify-nix",
+        "vscode-insiders": "vscode-insiders"
+      }
+    },
+    "spicetify-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1770846656,
+        "narHash": "sha256-wdYpo8++TqKp3GdRgLFykjuIVW1m9GlUnxID2FG74cE=",
+        "owner": "Gerg-L",
+        "repo": "spicetify-nix",
+        "rev": "40e65cfc4608402674e1efaac3fccce20d2a72d3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Gerg-L",
+        "repo": "spicetify-nix",
+        "type": "github"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "vscode-insiders": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771056778,
+        "narHash": "sha256-c7cF4Gh6O/2OzDElcBgcyro2d3Xa4ciIHLxtG/iMrMg=",
+        "owner": "auguwu",
+        "repo": "vscode-insiders-nix",
+        "rev": "c4549ed0af9a3f18cf5fa6cddbc7a141848ddb35",
+        "type": "github"
+      },
+      "original": {
+        "owner": "auguwu",
+        "repo": "vscode-insiders-nix",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

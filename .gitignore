@@ -1,0 +1,29 @@
+# Nix build results
+result
+result-*
+
+# Nix store paths
+/nix/store/
+
+# Backup files
+*~
+*.backup
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Exclude reference repo copy
+/nixos-dotfiles/
