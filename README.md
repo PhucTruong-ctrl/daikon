@@ -43,6 +43,23 @@ nix develop .#py314
 nix develop .#py315
 ```
 
+### Tailscale (Manual Login Mode)
+
+This setup enables the `tailscaled` service declaratively. Login is still manual by design.
+
+```bash
+# Rebuild and apply
+sudo nixos-rebuild switch --flake .#phuctruong-nixos
+
+# Check service
+systemctl is-enabled tailscaled
+systemctl is-active tailscaled
+
+# First-time login
+sudo tailscale up
+tailscale status
+```
+
 ## Repository Structure
 
 ```
@@ -141,6 +158,7 @@ nixos-dotfiles/
 - [Home Manager Manual](https://nix-community.github.io/home-manager/)
 - [Plasma Manager](https://github.com/nix-community/plasma-manager)
 - [NixOS Modules Wiki](https://nixos.wiki/wiki/NixOS_modules)
+- [NixOS AppImage Wiki](https://nixos.wiki/wiki/Appimage)
 
 ## License
 

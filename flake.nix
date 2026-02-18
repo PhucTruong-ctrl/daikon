@@ -121,8 +121,8 @@
       # Antigravity Tools - launch AppImage via appimage-run
       antigravity-tools = let
         appimage = pkgs.fetchurl {
-          url = "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.19/Antigravity.Tools_4.1.19_amd64.AppImage";
-          sha256 = "f8b6554fe86000d0bee45278a3fea3350ff31801f51d45a0110549c5b0bbe400";
+          url = "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.21/Antigravity.Tools_4.1.21_amd64.AppImage";
+          sha256 = "sha256-xszt6RUqBzHcvZEsahf8qwAAsmRGWGeE18yXAb/lbR8=";
         };
       in pkgs.writeShellScriptBin "antigravity-tools" ''
         exec ${pkgs.appimage-run}/bin/appimage-run ${appimage} "$@"
@@ -140,6 +140,29 @@
         mimeTypes = [ "text/plain" ];
         startupNotify = true;
         startupWMClass = "antigravity_tools";
+      };
+
+      # r2modman - launch AppImage via appimage-run
+      r2modman = let
+        appimage = pkgs.fetchurl {
+          url = "https://github.com/ebkr/r2modmanPlus/releases/download/v3.2.14/r2modman-3.2.14.AppImage";
+          sha256 = "sha256-KjKAzVyQgG8kXfhNmw8VfRco1pVhi3yGA81L+m1narU=";
+        };
+      in pkgs.writeShellScriptBin "r2modman" ''
+        exec ${pkgs.appimage-run}/bin/appimage-run ${appimage} "$@"
+      '';
+
+      # Desktop entry for r2modman
+      r2modman-desktop = pkgs.makeDesktopItem {
+        name = "r2modman";
+        desktopName = "r2modman";
+        comment = "Thunderstore mod manager";
+        exec = "${r2modman}/bin/r2modman";
+        icon = "r2modman";
+        terminal = false;
+        categories = [ "Game" "Utility" ];
+        startupNotify = true;
+        startupWMClass = "r2modman";
       };
 
       # User configuration
@@ -187,9 +210,14 @@
               # VS Code Insiders - bleeding edge with extension support (FHS wrapped)
               vscode-insiders-fhs
               vscode-insiders-desktop
+              # AppImage runtime
+              pkgs.appimage-run
               # Antigravity Tools
               antigravity-tools
               antigravity-tools-desktop
+              # r2modman
+              r2modman
+              r2modman-desktop
               pkgs.gemini-cli
               # Custom packages
               caprine-x11

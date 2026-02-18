@@ -25,6 +25,7 @@
     ghostty
     via
     remmina
+    protonplus
 
     # Python (multi-version)
     python312

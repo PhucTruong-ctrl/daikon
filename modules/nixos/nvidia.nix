@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, ... }: {
   # Enable NVIDIA drivers
   services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -28,11 +28,28 @@
       # Intel integrated GPU
       intelBusId = "PCI:0:2:0";
       # NVIDIA discrete GPU
-      nvidiaBusId = "PCI:1:0:0";
+      nvidiaBusId = "PCI:2:0:0";
     };
   };
 
   # Load nvidia module for early KMS
   boot.initrd.kernelModules = [ "nvidia" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.nvidiaPackages.stable ];
+
+  # Some mobile GPUs require this flag before clock controls are exposed.
+  boot.extraModprobeConfig = ''
+    options nvidia NVreg_RegistryDwords="OverrideMaxPerf=0x1"
+  '';
+
+  # Attempt to cap NVIDIA boost clocks near 1100 MHz for lower thermals.
+  # If the GPU/driver does not support lock clocks, this safely no-ops.
+  systemd.services.nvidia-clock-cap = {
+    description = "Cap NVIDIA boost clocks";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "-${config.hardware.nvidia.package.bin}/bin/nvidia-smi --lock-gpu-clocks=0,1101";
+    };
+  };
 }
