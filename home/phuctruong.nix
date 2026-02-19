@@ -21,4 +21,7 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # Required by Decky frontend injection in Steam Gamepad UI.
+  home.file.".steam/steam/.cef-enable-remote-debugging".text = "";
 }

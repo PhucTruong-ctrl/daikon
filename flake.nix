@@ -33,9 +33,11 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    jovian.url = "git+https://github.com/Jovian-Experiments/Jovian-NixOS";
   };
 
-  outputs = { self, nixpkgs, home-manager, plasma-manager, opencode, vscode-insiders, spicetify-nix, ... }:
+  outputs = { self, nixpkgs, home-manager, plasma-manager, opencode, vscode-insiders, spicetify-nix, jovian, ... }:
     let
       system = "x86_64-linux";
 
@@ -165,6 +167,30 @@
         startupWMClass = "r2modman";
       };
 
+      # Gale - launch AppImage via appimage-run
+      gale = let
+        appimage = pkgs.fetchurl {
+          url = "https://github.com/Kesomannen/gale/releases/download/1.12.0/Gale_1.12.0_amd64.AppImage";
+          sha256 = "sha256-Ux9rG3H1R13JXm0HttnXG/boonQsDIBveJy6A0VzLpg=";
+        };
+      in pkgs.writeShellScriptBin "gale" ''
+        export WEBKIT_DISABLE_DMABUF_RENDERER=1
+        exec ${pkgs.appimage-run}/bin/appimage-run ${appimage} "$@"
+      '';
+
+      # Desktop entry for Gale
+      gale-desktop = pkgs.makeDesktopItem {
+        name = "gale";
+        desktopName = "Gale";
+        comment = "Modern Thunderstore mod manager";
+        exec = "${gale}/bin/gale";
+        icon = "gale";
+        terminal = false;
+        categories = [ "Game" "Utility" ];
+        startupNotify = true;
+        startupWMClass = "gale";
+      };
+
       # User configuration
       username = "phuctruong";
       hostname = "phuctruong-nixos";
@@ -175,6 +201,7 @@
         inherit system;
         modules = [
           ./hosts/${hostname}/configuration.nix
+          jovian.nixosModules.default
 
           # Include Home Manager as a NixOS module
           home-manager.nixosModules.home-manager
@@ -218,6 +245,9 @@
               # r2modman
               r2modman
               r2modman-desktop
+              # Gale
+              gale
+              gale-desktop
               pkgs.gemini-cli
               # Custom packages
               caprine-x11

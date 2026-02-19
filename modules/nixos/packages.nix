@@ -26,6 +26,8 @@
     via
     remmina
     protonplus
+    localsend
+    goverlay
 
     # Python (multi-version)
     python312
@@ -39,6 +41,7 @@
     protonplus
 
     # System utilities (excluded: lenovo-legion)
+    mangohud
     noisetorch
   ];
 }
