@@ -35,9 +35,20 @@
     };
 
     jovian.url = "git+https://github.com/Jovian-Experiments/Jovian-NixOS";
+
+    aagl = {
+      url = "github:ezKEa/aagl-gtk-on-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Cracked PrismLauncher for offline play
+    prismlauncher-cracked = {
+      url = "github:Diegiwg/PrismLauncher-Cracked";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, plasma-manager, opencode, vscode-insiders, spicetify-nix, jovian, ... }:
+  outputs = { self, nixpkgs, home-manager, plasma-manager, opencode, vscode-insiders, spicetify-nix, jovian, aagl, prismlauncher-cracked, ... }:
     let
       system = "x86_64-linux";
 
@@ -121,13 +132,19 @@
       };
 
       # Antigravity Tools - launch AppImage via appimage-run
-      antigravity-tools = let
-        appimage = pkgs.fetchurl {
-          url = "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.21/Antigravity.Tools_4.1.21_amd64.AppImage";
-          sha256 = "sha256-xszt6RUqBzHcvZEsahf8qwAAsmRGWGeE18yXAb/lbR8=";
-        };
-      in pkgs.writeShellScriptBin "antigravity-tools" ''
-        exec ${pkgs.appimage-run}/bin/appimage-run ${appimage} "$@"
+      antigravity-tools-appimage = pkgs.fetchurl {
+        url = "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v4.1.22/Antigravity.Tools_4.1.22_amd64.AppImage";
+        sha256 = "sha256-rr5HnG+npGo3LiEyxr3ZqR8DiLLBaqi7xpVIeAG6KZI=";
+      };
+
+      antigravity-tools-squashfs = pkgs.appimageTools.extractType2 {
+        pname = "antigravity-tools";
+        version = "4.1.22";
+        src = antigravity-tools-appimage;
+      };
+
+      antigravity-tools = pkgs.writeShellScriptBin "antigravity-tools" ''
+        exec ${pkgs.appimage-run}/bin/appimage-run ${antigravity-tools-appimage} "$@"
       '';
 
       # Desktop entry for Antigravity Tools
@@ -136,7 +153,7 @@
         desktopName = "Antigravity Tools";
         comment = "AI API Management Tool";
         exec = "${antigravity-tools}/bin/antigravity-tools";
-        icon = "antigravity_tools";
+        icon = "${antigravity-tools-squashfs}/usr/share/icons/hicolor/128x128/apps/antigravity_tools.png";
         terminal = false;
         categories = [ "Utility" "Development" ];
         mimeTypes = [ "text/plain" ];
@@ -145,13 +162,19 @@
       };
 
       # r2modman - launch AppImage via appimage-run
-      r2modman = let
-        appimage = pkgs.fetchurl {
-          url = "https://github.com/ebkr/r2modmanPlus/releases/download/v3.2.14/r2modman-3.2.14.AppImage";
-          sha256 = "sha256-KjKAzVyQgG8kXfhNmw8VfRco1pVhi3yGA81L+m1narU=";
-        };
-      in pkgs.writeShellScriptBin "r2modman" ''
-        exec ${pkgs.appimage-run}/bin/appimage-run ${appimage} "$@"
+      r2modman-appimage = pkgs.fetchurl {
+        url = "https://github.com/ebkr/r2modmanPlus/releases/download/v3.2.14/r2modman-3.2.14.AppImage";
+        sha256 = "sha256-KjKAzVyQgG8kXfhNmw8VfRco1pVhi3yGA81L+m1narU=";
+      };
+
+      r2modman-squashfs = pkgs.appimageTools.extractType2 {
+        pname = "r2modman";
+        version = "3.2.14";
+        src = r2modman-appimage;
+      };
+
+      r2modman = pkgs.writeShellScriptBin "r2modman" ''
+        exec ${pkgs.appimage-run}/bin/appimage-run ${r2modman-appimage} "$@"
       '';
 
       # Desktop entry for r2modman
@@ -160,7 +183,7 @@
         desktopName = "r2modman";
         comment = "Thunderstore mod manager";
         exec = "${r2modman}/bin/r2modman";
-        icon = "r2modman";
+        icon = "${r2modman-squashfs}/usr/share/icons/hicolor/256x256/apps/r2modman.png";
         terminal = false;
         categories = [ "Game" "Utility" ];
         startupNotify = true;
@@ -168,14 +191,20 @@
       };
 
       # Gale - launch AppImage via appimage-run
-      gale = let
-        appimage = pkgs.fetchurl {
-          url = "https://github.com/Kesomannen/gale/releases/download/1.12.0/Gale_1.12.0_amd64.AppImage";
-          sha256 = "sha256-Ux9rG3H1R13JXm0HttnXG/boonQsDIBveJy6A0VzLpg=";
-        };
-      in pkgs.writeShellScriptBin "gale" ''
+      gale-appimage = pkgs.fetchurl {
+        url = "https://github.com/Kesomannen/gale/releases/download/1.12.0/Gale_1.12.0_amd64.AppImage";
+        sha256 = "sha256-Ux9rG3H1R13JXm0HttnXG/boonQsDIBveJy6A0VzLpg=";
+      };
+
+      gale-squashfs = pkgs.appimageTools.extractType2 {
+        pname = "gale";
+        version = "1.12.0";
+        src = gale-appimage;
+      };
+
+      gale = pkgs.writeShellScriptBin "gale" ''
         export WEBKIT_DISABLE_DMABUF_RENDERER=1
-        exec ${pkgs.appimage-run}/bin/appimage-run ${appimage} "$@"
+        exec ${pkgs.appimage-run}/bin/appimage-run ${gale-appimage} "$@"
       '';
 
       # Desktop entry for Gale
@@ -184,7 +213,7 @@
         desktopName = "Gale";
         comment = "Modern Thunderstore mod manager";
         exec = "${gale}/bin/gale";
-        icon = "gale";
+        icon = "${gale-squashfs}/usr/share/icons/hicolor/128x128/apps/gale.png";
         terminal = false;
         categories = [ "Game" "Utility" ];
         startupNotify = true;
@@ -199,9 +228,14 @@
       # NixOS system configuration
       nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
         inherit system;
+        specialArgs = { inherit prismlauncher-cracked; };
         modules = [
           ./hosts/${hostname}/configuration.nix
           jovian.nixosModules.default
+          aagl.nixosModules.default
+          {
+            programs.honkers-railway-launcher.enable = true;
+          }
 
           # Include Home Manager as a NixOS module
           home-manager.nixosModules.home-manager

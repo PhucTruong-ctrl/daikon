@@ -11,6 +11,11 @@
     };
   };
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
   users.defaultUserShell = pkgs.zsh;
 
   environment.shellAliases = {
