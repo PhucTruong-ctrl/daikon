@@ -49,7 +49,7 @@
     enable = true;
     config = {
       user.name = "phuctruong";
-      user.email = "phuctruong@example.com";
+      user.email = "bfbdarkness498@gmail.com";
       init.defaultBranch = "main";
       pull.rebase = false;
       push.autoSetupRemote = true;

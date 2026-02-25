@@ -1,47 +1,51 @@
 { pkgs, lib, ... }: {
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # System-wide packages.
+  # CachyOS equivalent: sudo pacman -S <package>
 
   environment.systemPackages = with pkgs; [
-    # Core tools
+    # ── Core CLI tools ──
     vim
     wget
     git
     gh
-    nodejs
     jq
     fastfetch
     htop
     lshw
     lm_sensors
+    usbutils        # lsusb — was missing, needed for keyboard/USB debugging
 
-    # Btrfs tools
+    # ── Filesystem ──
     btrfs-progs
     kdePackages.partitionmanager
 
-    # Development
+    # ── Development ──
+    nodejs
     bun
     zig
-    ghostty
-    via
-    remmina
-    protonplus
-    localsend
-    goverlay
+    ghostty          # Terminal emulator
 
-    # Python (multi-version)
+    # ── Hardware / Peripherals ──
+    via              # QMK keyboard configurator (BIOI SAMICE)
+
+    # ── Remote / Network ──
+    remmina          # RDP/VNC/SSH remote desktop client
+    localsend        # AirDrop alternative (LAN file sharing)
+
+    # ── Gaming tools ──
+    protonplus       # Proton-GE manager
+    goverlay         # MangoHud/vkBasalt overlay config GUI
+
+    # ── Python (multi-version) ──
     python312
     (lib.meta.lowPrio python313)
     (lib.meta.lowPrio python314)
     (lib.meta.lowPrio python315)
-    uv
-    pyenv
+    uv               # Fast Python package manager
+    pyenv            # Python version manager
 
-    # Window
-    protonplus
-
-    # System utilities (excluded: lenovo-legion)
-    mangohud
-    noisetorch
+    # ── System utilities ──
+    mangohud         # FPS/GPU overlay for games
+    noisetorch       # Microphone noise suppression
   ];
 }
