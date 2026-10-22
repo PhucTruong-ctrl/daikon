@@ -1,12 +1,3 @@
-<div align="center">
-
-<img src="assets/desktop.png" alt="The daikon desktop: NixOS, KDE Plasma, Home Manager" width="900">
-
-# daikon
-
-**A dotfiles garden for a NixOS + KDE Plasma desktop :  every graft stowable, nothing precious.**
-
-</div>
 
 ---
 
